@@ -20,6 +20,12 @@ struct Alunos{
     float nota;
 };
 
+struct Arvore{
+    int key;
+    Arvore *esquerda;
+    Arvore *direita;
+}
+
 int main()
 {
     int num = 28;
@@ -28,15 +34,27 @@ int main()
     char fase15[80] = "O bom, o mau e o faminto";
     print(fase15);
     
+    
     //Ponteiros 
     int x = 10;
     int *p = &x;
     print(p);
     print(x);
+    //Pilha
+    int pilha[100];
+    int topo = -1;
+    int valor;
     
+    pilha[++topo] =10;
+    pilha[++topo] =20;
+    pilha[++topo] =30;
+    print(pilha[topo]);
+    valor = pilha[--topo];
+    print(valor);
     
     std::cout<<"Hello World";
-
+    //Grafo
+    int grafo[2][2]={}
     return 0;
 }
 
