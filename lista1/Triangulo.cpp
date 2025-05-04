@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+
 int entradaDados(){
     int numero;
     cout << "Insira seu Número preferido Sr. Alexandre: ";
