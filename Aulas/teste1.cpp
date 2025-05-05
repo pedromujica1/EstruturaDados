@@ -24,7 +24,7 @@ struct Arvore{
     int key;
     Arvore *esquerda;
     Arvore *direita;
-}
+};
 
 int main()
 {
@@ -54,7 +54,7 @@ int main()
     
     std::cout<<"Hello World";
     //Grafo
-    int grafo[2][2]={}
+    int grafo[2][2]={};
     return 0;
 }
 
