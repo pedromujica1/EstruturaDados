@@ -3,7 +3,6 @@ using namespace std;
 
 //Função para let a entrada de uma matriz 3x3
 void leituraMatriz(int matriz[3][3]) {
-    cout << "Digite os elementos da matriz 3x3:\n";
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
             cin >> matriz[i][j];

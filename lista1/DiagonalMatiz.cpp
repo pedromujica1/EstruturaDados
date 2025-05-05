@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-
 //Função para let a entrada de uma matriz 3x3
 void leituraMatriz(int matriz[3][3]) {
     cout << "Digite os elementos da matriz 3x3:\n";
@@ -29,7 +28,6 @@ void imprimeMatriz(int matriz[3][3]) {
 int main() {
     int A[3][3];
 
-    cout << "Digite elementos da matriz A:\n";
     leituraMatriz(A);
     somaDiagonalMatriz(A);
     imprimeMatriz(A);

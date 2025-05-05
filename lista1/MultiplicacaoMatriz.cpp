@@ -3,15 +3,16 @@ using namespace std;
 
 //Função para let a entrada de uma matriz 3x3
 void leituraMatriz(int matriz[3][3]) {
-
+    cout << "Digite os elementos da matriz 3x3:\n";
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
             cin >> matriz[i][j];
 }
-void geraMatrizTransposta(int matriz[3][3], int matrizTransposta[3][3]) {
+void multiplicaMatriz(int A[3][3], int B[3][3], int C[3][3]) {
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
-            matrizTransposta[j][i] = matriz[i][j];
+            for (int k = 0; k < 3; k++)
+                C[i][j] += A[i][k] * B[k][j];
 }
 //Função para imprimir a matriz resultante
 void imprimeMatriz(int matriz[3][3]) {
@@ -22,17 +23,14 @@ void imprimeMatriz(int matriz[3][3]) {
         cout << endl;
     }
 }
-
-
 int main() {
-    int minhaMatriz[3][3];
-    int matrizTransposta[3][3];
-
-    cout << "Digite a matriz 3x3:\n";
-    leituraMatriz(minhaMatriz);
-    geraMatrizTransposta(minhaMatriz, matrizTransposta);
-
-    cout << "Matriz transposta:\n";
-    imprimeMatriz(matrizTransposta);
-    
+    int A[3][3], B[3][3], C[3][3] ={0};
+    cout << "Digite elementos da matriz A:\n";
+    leituraMatriz(A);
+    cout << "Digite elementos da matriz B:\n";
+    leituraMatriz(B);
+    cout << "Matriz soma (C):\n";
+    multiplicaMatriz(A, B, C);
+    imprimeMatriz(C);
+    return 0;
 }
