@@ -1,4 +1,4 @@
-# 🧠 POO -ls Modificador const em C++
+# 🧠 POO - Modificador const em C++
 
 O modificador const é essencial em C++ para garantir segurança, clareza e intenção no código. Ele é usado para declarar que um valor não será modificado, o que ajuda a evitar erros, documentar intenções e otimizar o código pelo compilador.
 ## 🔧 1. const em Variáveis
@@ -82,9 +82,8 @@ void exibirNome(const Pessoa& p) {
 const Pessoa p("João");
 p.getNome(); // ok
 //p.setNome("Maria"); // erro, método não é const
-
-    Um objeto const só pode chamar métodos const.
 ```
+Um objeto const só pode chamar métodos const.
 ## 🎯 6. mutable: A exceção à regra
 ```c++
 class Contador {
