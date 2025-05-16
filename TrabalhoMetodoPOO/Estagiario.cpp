@@ -9,7 +9,7 @@ public:
     string email;
     string setor;
     string instituicao_ensino;
-    int horasContratoSemanais = 30;
+    int horasContratoSemanais;
     int problemasResolvidos;
     int problemasCriados;
     int qntdFaltas;
@@ -33,7 +33,10 @@ public:
     string getEmail(){return email;}
     string getSetor(){return setor;}
     string getInstituicaoEnsino(){return instituicao_ensino;}
-    int getHorasContratoSemanais(){return horasContratoSemanais;}
+    //CONSTANTE DEFAULT PARA A CLASSE BASE 
+    virtual int getHorasContratoSemanais() const {
+        return 30;
+    }
     
     int getQntdFaltas(){return qntdFaltas;}
     int getProblemasResolvidos(){return problemasResolvidos;}
@@ -81,9 +84,9 @@ public:
 class EstagiarioNivelMedio : public Estagiario{
     public:
     //Atributos Exclusivos
-    const int horasContratoSemanais = 20;
     bool menorIdade;
     string responsavel;
+    int horasContratoSemanais = 20;
     
     //Herança
     // Estagiario(string n, string mail,string set, string inst_ensino, int pResolvidos, int pCriados, int faltas, float s): nome(n), email(mail),setor(set), instituicao_ensino(inst_ensino), problemasResolvidos(pResolvidos), problemasCriados(pCriados),qntdFaltas(faltas) , salario(s){
@@ -96,6 +99,10 @@ class EstagiarioNivelMedio : public Estagiario{
         cout << "--------------------------"<< endl;
         cout << "Estagiário " << nome << " saiu do setor " << setor << endl;
         cout << "--------------------------"<< endl;
+    }
+    //Sobrescrevendo 
+    int getHorasContratoSemanais() const override {
+        return horasContratoSemanais;
     }
     void setMenorIdade(bool menorI){menorIdade = menorI;}
     void setResponsavel(string resp){responsavel = resp;}
