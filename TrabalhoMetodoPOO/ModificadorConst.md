@@ -84,67 +84,7 @@ p.getNome(); // ok
 //p.setNome("Maria"); // erro, método não é const
 ```
 Um objeto const só pode chamar métodos const.
-## 🎯 6. mutable: A exceção à regra
-```c++
-class Contador {
-private:
-    mutable int acessos;
 
-public:
-    Contador() : acessos(0) {}
-
-    int get() const {
-        acessos++; // permitido porque acessos é mutable
-        return acessos;
-    }
-};
-```
-
-- mutable permite modificar atributos mesmo em métodos const.
-
-- Útil para contadores, caches, logs etc.
-
-### 🧪 Exemplo Completo para Apresentação
-```c++
-#include <iostream>
-using namespace std;
-
-class Produto {
-private:
-    string nome;
-    double preco;
-    mutable int acessos; // contado mesmo em métodos const
-
-public:
-    Produto(string n, double p) : nome(n), preco(p), acessos(0) {}
-
-    string getNome() const {
-        acessos++; // permitido por ser mutable
-        return nome;
-    }
-
-    double getPreco() const {
-        return preco;
-    }
-
-    void setPreco(double novoPreco) {
-        preco = novoPreco;
-    }
-
-    void mostrarAcessos() const {
-        cout << "Nome acessado " << acessos << " vezes." << endl;
-    }
-};
-
-int main() {
-    const Produto p("Notebook", 3499.99);
-
-    cout << p.getNome() << endl; // ok
-    cout << p.getPreco() << endl; // ok
-    p.mostrarAcessos(); // mostra quantas vezes o nome foi acessado
-
-    // p.setPreco(2999.99); // erro: objeto é const
-}
 ```
 ## ✅ Boas práticas com const
 
