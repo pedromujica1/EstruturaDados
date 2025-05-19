@@ -1,65 +1,45 @@
 #include <iostream>
 #include <string>
+#include <unistd.h> // Para sleep
+#include <cstdlib> // Para system("clear") ou system("cls")
 using namespace std;
 
-class Estagiario{
-public:
-    //Atributos Classes Bases
-    string nome;
-    string email;
-    string setor;
-    string instituicao_ensino;
-    int horasContratoSemanais;
+class Estagiario {
+protected:
+    string nome,email,setor,instituicao_ensino;
     int problemasResolvidos;
     int problemasCriados;
     int qntdFaltas;
     float salario;
 
-    Estagiario(string n, string mail,string set, string inst_ensino, int hSemanais, int pResolvidos, int pCriados, int faltas, float s): nome(n), email(mail),setor(set), instituicao_ensino(inst_ensino),horasContratoSemanais(hSemanais), problemasResolvidos(pResolvidos), problemasCriados(pCriados),qntdFaltas(faltas) , salario(s){
+public:
+    Estagiario(string n, string mail, string set, string inst_ensino, int pResolvidos, int pCriados, int faltas, float s)
+        : nome(n), email(mail), setor(set), instituicao_ensino(inst_ensino), problemasResolvidos(pResolvidos), problemasCriados(pCriados), qntdFaltas(faltas),salario(s) 
+    {
+        cout << "--------------------------\n";
+        cout << "Estagiário " << nome << " entrou no setor " << setor << endl;
+        cout << "--------------------------\n";
     }
-    void setNome(string n){nome = n;}
-    void setEmail(string mail){email = mail;}
-    void setSetor(string set){setor = set;}
-    void setInstituicaoEnsino(string inst_ensino){instituicao_ensino = inst_ensino;}
-    
-    //void setHorasContrato(int hContrato){horasContrato = hContrato;}
-    
-    void setQntdFaltas(int qFaltas){qntdFaltas = qFaltas;}
-    void setProblemasResolvidos(int pResolvidos){problemasResolvidos = pResolvidos;}
-    void setProblemasCriados(int pCriados){problemasCriados = pCriados;}
-    void setSalario(float s){salario = s;}
 
-    string getNome(){return nome;}
-    string getEmail(){return email;}
-    string getSetor(){return setor;}
-    string getInstituicaoEnsino(){return instituicao_ensino;}
-    //CONSTANTE DEFAULT PARA A CLASSE BASE 
+    virtual ~Estagiario() {}
+
     virtual int getHorasContratoSemanais() const {
         return 30;
     }
-    
-    int getQntdFaltas(){return qntdFaltas;}
-    int getProblemasResolvidos(){return problemasResolvidos;}
-    int getProblemasCriados(){return problemasCriados;}
-    float getSalario(){return salario;}
 
     //Metódos gerais
-    
-    void exibirRelatorio(){
-        cout << endl;
-        cout << "-------RELATORIO ESTAGIARIO---------"  << endl;
-        cout << "Nome: " << getNome() << endl;
-        cout << "Email: " << getEmail() << endl;
-        cout << "Setor: " << getSetor() << endl;
-        cout << "Instituição de Ensino: " << getInstituicaoEnsino() << endl;
+    void exibirRelatorio() const {
+        cout << "\n------- RELATÓRIO ESTAGIÁRIO ---------\n";
+        cout << "Nome: " << nome << endl;
+        cout << "Email: " << email << endl;
+        cout << "Setor: " << setor << endl;
+        cout << "Instituição de Ensino: " << instituicao_ensino << endl;
         cout << "Horas de contrato semanais: " << getHorasContratoSemanais() << endl;
-        cout << "Quantidade de faltas: " << getQntdFaltas() << endl;
-        cout << "Problemas resolvidos: " << getProblemasResolvidos() << endl;
-        cout << "Problemas criados: " << getProblemasCriados() << endl;
-        cout << "Salário: R$" << getSalario() << endl;
-        cout << "--------------------------"<< endl;
-        cout << endl;
-
+        cout << "Quantidade de faltas: " << qntdFaltas << endl;
+        cout << "Problemas resolvidos: " << problemasResolvidos << endl;
+        cout << "Problemas criados: " << problemasCriados << endl;
+        cout << "Salário: R$" << salario << endl;
+        cout << "---------------------------------------\n";
     }
 
     void registrarFalta() {
@@ -69,90 +49,145 @@ public:
 
     void resolverProblema() {
         problemasResolvidos++;
-        salario += 20; //Aumento de R$100 por problema resolvido
+        salario += 100;
         cout << nome << " resolveu um problema. Novo salário: " << salario << endl;
     }
+
     void criarProblema() {
         problemasCriados++;
-        salario -= 20; 
+        salario -= 100;
         cout << nome << " criou um problema. Novo salário: " << salario << endl;
     }
-
-
-
 };
-class EstagiarioNivelMedio : public Estagiario{
-    public:
-    //Atributos Exclusivos
+
+class EstagiarioNivelMedio : public Estagiario {
+private:
+    const int horasContratoSemanais = 20; // Constante imutável conforme a lei
     bool menorIdade;
     string responsavel;
-    int horasContratoSemanais = 20;
-    
-    //Herança
-    // Estagiario(string n, string mail,string set, string inst_ensino, int pResolvidos, int pCriados, int faltas, float s): nome(n), email(mail),setor(set), instituicao_ensino(inst_ensino), problemasResolvidos(pResolvidos), problemasCriados(pCriados),qntdFaltas(faltas) , salario(s){
-    EstagiarioNivelMedio(string n, string mail,string setor, string inst_ensino,int hSemanais, int hContrato, int pResolvidos, int pCriados, int faltas, float s, bool menorIdade, string responsavel): Estagiario(n, mail,setor, inst_ensino,hSemanais, pResolvidos, pCriados, faltas, s), menorIdade(menorIdade), responsavel(responsavel){
-            cout << "--------------------------"<< endl;
-            cout << "Estagiário de nível Médio " << nome << " entrou no setor " << setor << endl;
-            cout << "--------------------------"<< endl;
-        }
-    ~EstagiarioNivelMedio(){
-        cout << "--------------------------"<< endl;
-        cout << "Estagiário " << nome << " saiu do setor " << setor << endl;
-        cout << "--------------------------"<< endl;
+
+public:
+    EstagiarioNivelMedio(string n, string mail, string setor, string inst_ensino,
+                         int pResolvidos, int pCriados, int faltas, float s,
+                         bool menorIdade, string responsavel)
+        : Estagiario(n, mail, setor, inst_ensino, pResolvidos, pCriados, faltas, s),
+          menorIdade(menorIdade), responsavel(responsavel)
+    {
+        cout << "--------------------------\n";
+        cout << "Estagiário de Nível Médio " << nome << " entrou no setor " << setor << endl;
+        cout << "--------------------------\n";
     }
-    //Sobrescrevendo 
+
+    ~EstagiarioNivelMedio() override {
+        cout << "--------------------------\n";
+        cout << "Estagiário nível médio: " << nome << " saiu do setor " << setor << endl;
+        cout << "--------------------------\n";
+    }
+
     int getHorasContratoSemanais() const override {
         return horasContratoSemanais;
     }
-    void setMenorIdade(bool menorI){menorIdade = menorI;}
-    void setResponsavel(string resp){responsavel = resp;}
-    bool getMenorIdade(){return menorIdade;}
-    string getResponsavel(){return responsavel;}
-    //void setHorasContrato(int hContrato){horasContratoSemanais = hContrato;}
+
+    void setResponsavel(string resp) {
+        responsavel = resp;
+        cout << "Responsável atualizado para " << nome << ": " << responsavel << endl;
+    }
+    string getResponsavel() const { return responsavel; }
+    bool getMenorIdade() const { return menorIdade; }
 };
 
-class EstagiarioNivelSuperior : public Estagiario{
-    public:
-    //Atributos Exclusivos
+class EstagiarioNivelSuperior : public Estagiario {
+private:
     int horasComplementares;
     bool estagioCurricular;
-    
-    //Herança
-    EstagiarioNivelSuperior(string n, string mail,string setor, string inst_ensino, int hSemanais, int pResolvidos, int pCriados, int faltas, float s, int hComplementares, bool estagioC): Estagiario(n, mail,setor, inst_ensino,hSemanais, pResolvidos, pCriados, faltas, s), horasComplementares(hComplementares), estagioCurricular(estagioC){
-            cout << "--------------------------"<< endl;
-            cout << "Estagiário de Nível superior " << nome << " entrou no setor " << setor << endl;
-            cout << "--------------------------"<< endl;
-        }
-    ~EstagiarioNivelSuperior(){
-        cout << "--------------------------"<< endl;
-        cout << "Estagiário " << nome << " saiu do setor " << setor << endl;
-        cout << "--------------------------"<< endl;
+
+public:
+    EstagiarioNivelSuperior(string n, string mail, string setor, string inst_ensino,int pResolvidos, int pCriados, int faltas, float s,int hComplementares, bool estagioC)
+        : Estagiario(n, mail, setor, inst_ensino, pResolvidos, pCriados, faltas, s),
+          horasComplementares(hComplementares), estagioCurricular(estagioC)
+    {
+        cout << "--------------------------\n";
+        cout << "Estagiário de Nível Superior " << nome << " entrou no setor " << setor << endl;
+        cout << "--------------------------\n";
     }
-    void setHorasComplementares(int horasComp){horasComplementares = horasComp;}
-    void setEstagioCurricular(bool estagioC){estagioCurricular = estagioC;}
-    int getHorasComplementares(){return horasComplementares;}
-    bool getEstagioCurricular(){return estagioCurricular;}
+
+    ~EstagiarioNivelSuperior() override {
+        cout << "--------------------------\n";
+        cout << "Estagiário " << nome << " saiu do setor " << setor << endl;
+        cout << "--------------------------\n";
+    }
 
     void adicionarHorasComplementares(int horas) {
         horasComplementares += horas;
         cout << horas << " horas complementares adicionadas. Total: " << horasComplementares << endl;
     }
 
+    int getHorasComplementares() const { return horasComplementares; }
+    bool getEstagioCurricular() const { return estagioCurricular; }
 };
 
-int main() {
-  
-    EstagiarioNivelMedio est1("Rogério Sazon", "rogerio.sazon@ifpr.com", "Auditórios", "IFPR - Campus Cvel",20, 20, 5, 1, 0, 800.0, true, "Josué Castro");
-    est1.exibirRelatorio();    
+void exemploExecucao() {
+    EstagiarioNivelMedio est1("Frodo", "frodo@shire.com", "TI", "Colégio Shire",
+                               5, 1, 0, 900.0, true, "Gandalf");
+
+    est1.exibirRelatorio();
+    cout << "---------Processando-------------" << endl;
+    sleep(15);
     est1.resolverProblema();
     est1.exibirRelatorio();
+    cout << "---------Processando-------------" << endl;
+    sleep(15);
 
-    EstagiarioNivelSuperior est2("Bilbo Baggins", "bilbo.baggins@middleearth.com", "Engenharia", "USP", 30, 15, 0, 0, 1800.0, 30, true);
+    EstagiarioNivelSuperior est2("Bilbo", "bilbo@shire.com", "Engenharia", "USP",
+                                 15, 0, 0, 1800.0, 30, true);
+
     est2.exibirRelatorio();
+    cout << "---------Processando-------------" << endl;
+    sleep(15);
     est2.adicionarHorasComplementares(10);
-    est2.resolverProblema();              
-    est2.criarProblema();                 
+    est2.resolverProblema();
+    est2.criarProblema();
+    cout << "---------Processando-------------" << endl;
+    sleep(15);
     est2.exibirRelatorio();
+    cout << "---------Processando-------------" << endl;
+    sleep(15);
+    cout << "Fim da execução! Obrigado por utilizar!!!" << endl;
+}
 
+Estagiario criarEstagiario() {
+    string nome, email, setor, instituicao;
+    int resolvidos, criados, faltas;
+    float salario;
+    cout << "\n------- CADASTRE SEU ESTAGIÁRIO ---------\n";
+    cout << "Digite o nome: ";
+    getline(cin, nome);
+    cout << "Digite o email: ";
+    getline(cin, email);
+    cout << "Digite o setor: ";
+    getline(cin, setor);
+    cout << "Digite a instituição de ensino: ";
+    getline(cin, instituicao);
+    cout << "Quantidade de problemas resolvidos: ";
+    cin >> resolvidos;
+    cout << "Quantidade de problemas criados: ";
+    cin >> criados;
+    cout << "Quantidade de faltas: ";
+    cin >> faltas;
+    cout << "Salário: ";
+    cin >> salario;
+    cin.ignore(); //Limpa o buffer
+
+    //Retorna o objeto
+    return Estagiario(nome, email, setor, instituicao, resolvidos, criados, faltas, salario);
+    
+}
+
+int main() {
+    Estagiario est = criarEstagiario();
+    est.exibirRelatorio();
+    cout << "---------Processando-------------" << endl;
+    sleep(15);
+    exemploExecucao();
     return 0;
 }
